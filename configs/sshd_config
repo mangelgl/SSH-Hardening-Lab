@@ -1,0 +1,91 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+# Se cambia el puerto por defecto para evitar los ataques de bots automáticos.
+Port 33789
+#AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+#RekeyLimit default none
+
+#SyslogFacility AUTH
+#LogLevel INFO
+
+#LoginGraceTime 2m
+PermitRootLogin no
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+
+# Cierra sesiones inactivas a los 5 minutos
+ClientAliveInterval 300
+
+# Autenticación por clave pública
+PubkeyAuthentication yes
+
+#AuthorizedKeysFile     .ssh/authorized_keys .ssh/authorized_keys2
+#AuthorizedPrincipalsFile none
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+#HostbasedAuthentication no
+#IgnoreUserKnownHosts no
+#IgnoreRhosts yes
+
+# No se permite el login por contraseña
+PasswordAuthentication no
+#PermitEmptyPasswords no
+AuthenticationMethods publickey,keyboard-interactive
+
+# Desafío-respuesta
+# Activado para MFA
+KbdInteractiveAuthentication yes
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+# Activa autenticación PAM para MFA
+UsePAM yes
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+#GatewayPorts no
+X11Forwarding yes
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+#PrintMotd yes
+#PrintLastLog yes
+#TCPKeepAlive yes
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS no
+#PidFile /run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+#Banner none
+
+AcceptEnv LANG LC_*
+
+Subsystem       sftp    /usr/lib/openssh/sftp-server
+
+# Permite el acceso a un determinado grupo y a usuarios habilitados
+AllowUsers mgarlop batman
+AllowGroups ssh-clients
